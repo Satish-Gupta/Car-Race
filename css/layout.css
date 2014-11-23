@@ -1,13 +1,24 @@
 .main-container {
     padding: 0px 50px;
-    background: green;
+    background: url("../images/road-edge.png") top left repeat-x;
     margin: 10px auto;
     overflow: hidden;
 }
-.road-wrapper {
+.road {
     /*width: 300px;*/
     /*height: 1000px;*/
     background: url("../images/bg-road.png") top left repeat-y;
     position: relative;
     /*top: -0px;*/
+    z-index: 5;
+}
+.welcome-screen {
+    padding: 20px;
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    z-index: 10;
+    top : 200px;
+    left: 50px
+
 }
