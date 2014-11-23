@@ -7,6 +7,7 @@ var opponentCars = [];
 
 var trackLength = 10000;
 var trackWidth = 300;
+var laneWidth = 300 / 3;
 var visibleTrack = 580;
 var carSpeed = 5;       // the speed of road-background movement
 
@@ -26,7 +27,12 @@ var carLength = 60;
 var carColour = "yellow";
 var interCarGap = 4 * carLength;
 var playerCarTailPos = 20;        // distance between the the tail position of car and the bottom of the visible track
-var carPositionsX = [20, (trackWidth / 2) - (carWidth / 2), 220];     // possible car x-positions
+//var carPositionsX = [20, (trackWidth / 2) - (carWidth / 2), 220];     // possible car x-positions
+var carPositionsX = [];
+for(var i = 0,temp = laneWidth / 2 - carWidth / 2;i < trackWidth / laneWidth; i++) {
+    carPositionsX.push(temp);
+    temp += laneWidth;
+}
 var previousOpponentCarPosX = 0;
 
 var playerCarPosY = trackLength - (carLength + playerCarTailPos);
@@ -113,7 +119,7 @@ function gameloop() {
     }
 
     // move track bg resulting movement of the car till no track left to scroll(move)
-    if (trackTopPos <= 0) {
+    if (trackTopPos <= -carSpeed) {
 
         moveOpponent();
 
@@ -122,3 +128,18 @@ function gameloop() {
 }
 
 setInterval(gameloop, gameRefreshRate);
+
+document.addEventListener("keydown",function(event) {
+    var left = player_car.x - laneWidth;
+    var right = player_car.x + laneWidth;
+
+
+    if(event.keyCode == "37" && left >= (laneWidth / 2 - carWidth / 2)) {
+        player_car.x = left;
+        player_car.element.style.left = left + "px";
+    } else if (event.keyCode =="39" && right < trackWidth - (laneWidth/2)) {
+        player_car.x = right;
+        player_car.element.style.left = right + "px";
+
+    }
+});
